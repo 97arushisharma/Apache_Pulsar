@@ -52,7 +52,7 @@ public class PulsarConsumer {
 
         Consumer consumer = client.newConsumer()
                 .topic(props.getProperty("topicName"))
-                .subscriptionName(subscription)
+                .subscriptionName(props.getProperty("subscriptionName"))
                 .cryptoKeyReader(new RawKeyFile(props.getProperty("privateKeyFile"), props.getProperty("publicKeyFile")))
                 .subscribe();
 
@@ -77,6 +77,7 @@ public class PulsarConsumer {
                 consumer.negativeAcknowledge(msg);
             }
         }
+        consumer.close();
     }
 
     public static void main(String args[]) throws PulsarClientException {
